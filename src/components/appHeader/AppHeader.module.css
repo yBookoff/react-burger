@@ -1,0 +1,41 @@
+header {
+    background-color: #1c1c21;
+}
+
+nav {
+    width: 70%;
+    margin: auto !important;
+    color: #8585AD;
+    display: flex;
+    justify-content: space-between;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0px;
+    margin-left: 0px;
+}
+
+ul li {
+    padding: 0px 10px;
+}
+
+ul.left li {
+    float: left;
+}
+
+ul.right li {
+    float: right;
+
+}
+
+li span.active {
+    color: white;
+}
+
+li span {
+    padding-left: 5px;
+}
+
+
+

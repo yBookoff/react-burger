@@ -36,3 +36,42 @@
     transform: rotate(360deg);
   }
 }
+
+.Main {
+  padding-top: 20px;
+  width: 70%;
+  margin: auto;
+  display: flex;
+}
+
+.Section {
+  width: 50%;
+  float: left;
+  text-align: left;
+  overflow-y:auto;
+}
+
+.Section:last-child {
+  text-align: right;
+}
+
+h1 {
+  text-align: left;
+}
+
+.gridWrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.total_price {
+  float: right;
+  padding-right: 15px;
+}
+
+.total_price span {
+  vertical-align: middle;
+  display: inline-flex;
+  align-items: center;
+  padding-right: 20px;
+}
