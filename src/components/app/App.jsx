@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from '../../images/logo.svg';
 import styles from './App.module.css';
 import AppHeader from '../appHeader/AppHeader';
 import BurgerConstructor from '../burgerConstructor/BurgerConstructor';
