@@ -68,7 +68,7 @@ function App() {
                 <div className={styles.total_price}>
                     <span className="text text_type_digits-large">{
                         order.reduce((total, product) => (total + product.price), 0)
-                    }  <CurrencyIcon /></span>
+                    }  <CurrencyIcon type="primary" /></span>
                     <Button>Оформить заказ</Button>
                 </div>
             </section>
