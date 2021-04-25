@@ -31,24 +31,24 @@ function App() {
                         Начинки
                     </Tab>
                 </div>
-                <h2 className="text text_type_main-medium pt-4 ">Булки</h2>
+                <h2 className="text text_type_main-medium pt-4">Булки</h2>
                 <div className={styles.gridWrapper}>
                     {product_list.filter(product => product.type === 'bun').map((product) => (
-                        <BurgerConstructor {...product}/>
+                        <BurgerConstructor key={product.id} {...product}/>
                     ))}
                 </div>
 
                 <h2 className="text text_type_main-medium pt-4">Соусы</h2>
                 <div className={styles.gridWrapper}>
                     {product_list.filter(product => product.type === 'sauce').map((product) => (
-                        <BurgerConstructor {...product}/>
+                        <BurgerConstructor key={product.id} {...product}/>
                     ))}
                 </div>
 
                 <h2 className="text text_type_main-medium pt-4">Начинки</h2>
                 <div className={styles.gridWrapper}>
                     {product_list.filter(product => product.type === 'main').map((product) => (
-                        <BurgerConstructor {...product}/>
+                        <BurgerConstructor key={product.id} {...product}/>
                     ))}
                 </div>
             </section>
@@ -58,6 +58,7 @@ function App() {
 
                         <li className="text text_type_main-default pb-2">
                             <BurgerIngredients
+                                key={product.id}
                                 {...product}
                                 type={index === 0 ? 'top' : (index === order.length - 1 ? 'bottom' : null)}
                                 isLocked={index === 0 || index === order.length - 1}

@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 
@@ -15,6 +16,14 @@ function BurgerIngredients(props) {
             />
         </div>
     )
+}
+
+BurgerIngredients.propTypes = {
+    image: PropTypes.string,
+    name: PropTypes.string,
+    price: PropTypes.number,
+    isLocked: PropTypes.bool,
+    type: PropTypes.string
 }
 
 export default BurgerIngredients;
