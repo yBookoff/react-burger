@@ -1,6 +1,6 @@
 import React from 'react';
 import { Logo, ProfileIcon, BurgerIcon, ListIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/index.js";
-import styles from './AppHeader.module.css'
+import styles from './app-header.module.css'
 
 function AppHeader() {
 

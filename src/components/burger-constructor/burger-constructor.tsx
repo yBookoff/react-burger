@@ -1,6 +1,6 @@
 import React from "react";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components/dist/index.js";
-import styles from './BurgerConstructor.module.css';
+import styles from './burger-constructor.module.css';
 
 
 function BurgerConstructor(props) {

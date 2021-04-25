@@ -1,8 +1,8 @@
 import React from 'react';
-import styles from './App.module.css';
-import AppHeader from '../appHeader/AppHeader';
-import BurgerConstructor from '../burgerConstructor/BurgerConstructor';
-import BurgerIngredients from  '../burgerIngredients/BurgerIngredients';
+import styles from './app.module.css';
+import AppHeader from '../app-header/app-header';
+import BurgerConstructor from '../burger-constructor/burger-constructor';
+import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 
 import { Tab, Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
