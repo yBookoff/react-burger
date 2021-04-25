@@ -11,7 +11,10 @@ function AppHeader() {
                     <li><BurgerIcon type="primary" /> <span className={styles.active}>Конструктор</span></li>
                     <li><ListIcon type="secondary" /> <span>Лента заказов</span></li>
                 </ul>
-                <Logo />
+                <span className="pt-1">
+                    <Logo />
+                </span>
+
                 <ul className={styles.right}>
                     <li><ProfileIcon type="secondary"/> <span>Личный кабинет</span></li>
                 </ul>

@@ -35,6 +35,9 @@ li span.active {
 
 li span {
     padding-left: 5px;
+    display: inline-block;
+    vertical-align: middle;
+    padding-bottom: 15px;
 }
 
 
