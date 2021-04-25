@@ -56,7 +56,7 @@ function App() {
                 <ul>
                     {order.map((product, index) => (
 
-                        <li className={"text text_type_main-default pb-2"}>
+                        <li className="text text_type_main-default pb-2">
                             <BurgerIngredients
                                 {...product}
                                 type={index === 0 ? 'top' : (index === order.length - 1 ? 'bottom' : null)}

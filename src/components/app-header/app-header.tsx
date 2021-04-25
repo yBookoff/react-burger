@@ -5,7 +5,7 @@ import styles from './app-header.module.css'
 function AppHeader() {
 
     return (
-        <header className={"pt-2 pb-2"}>
+        <header className="pt-2 pb-2">
             <nav className="text text_type_main-default">
                 <ul className={styles.left}>
                     <li><BurgerIcon type="primary" /> <span className={styles.active}>Конструктор</span></li>
