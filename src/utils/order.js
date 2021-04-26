@@ -1,0 +1,88 @@
+const order = [
+    {
+        "_id":"60666c42cc7b410027a1a9b2",
+        "name":"Флюоресцентная булка R2-D3",
+        "type":"bun",
+        "proteins":44,
+        "fat":26,
+        "carbohydrates":85,
+        "calories":643,
+        "price":988,
+        "image":"https://code.s3.yandex.net/react/code/bun-01.png",
+        "image_mobile":"https://code.s3.yandex.net/react/code/bun-01-mobile.png",
+        "image_large":"https://code.s3.yandex.net/react/code/bun-01-large.png",
+        "__v":0
+    },
+    {
+        "_id":"60666c42cc7b410027a1a9bc",
+        "name":"Плоды Фалленианского дерева",
+        "type":"main",
+        "proteins":20,
+        "fat":5,
+        "carbohydrates":55,
+        "calories":77,
+        "price":874,
+        "image":"https://code.s3.yandex.net/react/code/sp_1.png",
+        "image_mobile":"https://code.s3.yandex.net/react/code/sp_1-mobile.png",
+        "image_large":"https://code.s3.yandex.net/react/code/sp_1-large.png",
+        "__v":0
+    },
+    {
+        "_id":"60666c42cc7b410027a1a9bb",
+        "name":"Хрустящие минеральные кольца",
+        "type":"main",
+        "proteins":808,
+        "fat":689,
+        "carbohydrates":609,
+        "calories":986,
+        "price":300,
+        "image":"https://code.s3.yandex.net/react/code/mineral_rings.png",
+        "image_mobile":"https://code.s3.yandex.net/react/code/mineral_rings-mobile.png",
+        "image_large":"https://code.s3.yandex.net/react/code/mineral_rings-large.png",
+        "__v":0
+    },
+    {
+        "_id":"60666c42cc7b410027a1a9ba",
+        "name":"Соус с шипами Антарианского плоскоходца",
+        "type":"sauce",
+        "proteins":101,
+        "fat":99,
+        "carbohydrates":100,
+        "calories":100,
+        "price":88,
+        "image":"https://code.s3.yandex.net/react/code/sauce-01.png",
+        "image_mobile":"https://code.s3.yandex.net/react/code/sauce-01-mobile.png",
+        "image_large":"https://code.s3.yandex.net/react/code/sauce-01-large.png",
+        "__v":0
+    },
+    {
+        "_id":"60666c42cc7b410027a1a9bd",
+        "name":"Кристаллы марсианских альфа-сахаридов",
+        "type":"main",
+        "proteins":234,
+        "fat":432,
+        "carbohydrates":111,
+        "calories":189,
+        "price":762,
+        "image":"https://code.s3.yandex.net/react/code/core.png",
+        "image_mobile":"https://code.s3.yandex.net/react/code/core-mobile.png",
+        "image_large":"https://code.s3.yandex.net/react/code/core-large.png",
+        "__v":0
+    },
+    {
+        "_id":"60666c42cc7b410027a1a9b2",
+        "name":"Флюоресцентная булка R2-D3",
+        "type":"bun",
+        "proteins":44,
+        "fat":26,
+        "carbohydrates":85,
+        "calories":643,
+        "price":988,
+        "image":"https://code.s3.yandex.net/react/code/bun-01.png",
+        "image_mobile":"https://code.s3.yandex.net/react/code/bun-01-mobile.png",
+        "image_large":"https://code.s3.yandex.net/react/code/bun-01-large.png",
+        "__v":0
+    },
+]
+
+export default order;
