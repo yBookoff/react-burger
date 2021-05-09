@@ -1,4 +1,5 @@
 .Card {
     text-align: center;
-    padding-bottom: 30px;
+    padding-top: 30px;
+    position: relative;
 }

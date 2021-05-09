@@ -76,6 +76,10 @@ h1 {
   padding-right: 20px;
 }
 
+.posCenter {
+  text-align: center;
+}
+
 @media (max-width: 1600px) {
   .Main {
     display: block;

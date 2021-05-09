@@ -1,0 +1,6 @@
+.grid4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    color: #797b9c;
+    padding-bottom: 30px;
+}
