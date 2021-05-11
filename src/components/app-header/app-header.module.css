@@ -1,5 +1,6 @@
 header {
     background-color: #1c1c21;
+    margin-bottom: 20px;
 }
 
 nav {
@@ -41,7 +42,7 @@ li span.active {
     color: white;
 }
 
-li span {
+nav ul li span {
     /*padding-left: 5px;*/
     display: inline-block;
     vertical-align: middle;
