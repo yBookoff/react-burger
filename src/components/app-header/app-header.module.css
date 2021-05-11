@@ -43,10 +43,15 @@ li span.active {
 }
 
 nav ul li span {
-    /*padding-left: 5px;*/
     display: inline-block;
     vertical-align: middle;
     padding-bottom: 15px;
+}
+
+@media (min-width: 1400px) {
+    nav {
+        width: 70%;
+    }
 }
 
 

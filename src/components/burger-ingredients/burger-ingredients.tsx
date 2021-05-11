@@ -6,8 +6,16 @@ import "./burger-ingredients.css";
 
 function BurgerIngredients(props) {
     return (
-        <div>
-            {props.type ? <span className="pl-3"></span> : <DragIcon type="primary" />}
+        <div className="order-row">
+            <div className="drag-icon">
+                {props.type
+                    ?
+                    <span className="pl-6"></span>
+                    :
+                    <DragIcon type="primary" />
+
+                }
+            </div>
             <ConstructorElement
                 thumbnail={props.image}
                 text={props.name}
@@ -17,7 +25,7 @@ function BurgerIngredients(props) {
             />
         </div>
     )
-}
+};
 
 BurgerIngredients.propTypes = {
     image: PropTypes.string,

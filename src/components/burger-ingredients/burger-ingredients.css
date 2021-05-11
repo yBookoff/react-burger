@@ -5,3 +5,12 @@
 .constructor-element__price {
     margin-left: auto;
 }
+
+.drag-icon {
+    margin-top: 26px;
+}
+
+.order-row {
+    display: inline-flex;
+    width: 100%;
+}

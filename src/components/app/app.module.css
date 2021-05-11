@@ -65,6 +65,7 @@ h1 {
 }
 
 .total_price {
+  padding-top: 30px;
   float: right;
 }
 
@@ -79,13 +80,12 @@ h1 {
   text-align: center;
 }
 
-@media (max-width: 1600px) {
-  .Main {
-    display: block;
-  }
+.order_list {
+  float: right;
+}
 
-  .Section {
-    float: none;
-    width: 100%;
+@media (min-width: 1400px) {
+  .Main {
+    width: 70%;
   }
 }

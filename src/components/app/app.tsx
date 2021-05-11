@@ -180,9 +180,9 @@ function App() {
                         order.length > 0
                             ?
                             <>
-                                <ul>
+                                <ul className={styles.order_list}>
                                     {order.map((product, index) => (
-                                        <li className="text text_type_main-default pb-2" key={index}>
+                                        <li className="text text_type_main-default pb-6" key={index}>
                                             <BurgerIngredients
                                                 {...product}
                                                 type={index === 0 ? 'top' : (index === order.length - 1 ? 'bottom' : null)}
