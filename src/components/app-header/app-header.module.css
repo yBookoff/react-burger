@@ -3,21 +3,29 @@ header {
 }
 
 nav {
-    width: 70%;
     margin: auto !important;
-    color: #8585AD;
-    display: flex;
     justify-content: space-between;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    width: 75%;
+}
+
+.navbarbrand {
+    padding-top: .3125rem;
+    padding-bottom: .3125rem;
 }
 
 ul {
     list-style-type: none;
+    margin-bottom: 0;
     padding-left: 0px;
-    margin-left: 0px;
 }
 
 ul li {
-    padding: 0px 10px;
+    padding-right: 20px;
 }
 
 ul.left li {
@@ -34,7 +42,7 @@ li span.active {
 }
 
 li span {
-    padding-left: 5px;
+    /*padding-left: 5px;*/
     display: inline-block;
     vertical-align: middle;
     padding-bottom: 15px;
