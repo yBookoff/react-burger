@@ -192,9 +192,9 @@ function App() {
                                     ))}
                                 </ul>
                                 <div className={styles.total_price}>
-                                    <span className="text text_type_digits-large">{
+                                    <span className="text text_type_digits-medium">{
                                         order.reduce((total, product) => (total + product.price), 0)
-                                    } <CurrencyIcon type="primary"/>
+                                    }&nbsp;<CurrencyIcon type="primary"/>
                                     </span>
                                     <Button onClick={openModalOrder}>Оформить заказ</Button>
                                 </div>

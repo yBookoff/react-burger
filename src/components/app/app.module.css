@@ -66,14 +66,13 @@ h1 {
 
 .total_price {
   float: right;
-  padding-right: 15px;
 }
 
 .total_price span {
   vertical-align: middle;
   display: inline-flex;
   align-items: center;
-  padding-right: 20px;
+  padding-right: 30px;
 }
 
 .posCenter {
