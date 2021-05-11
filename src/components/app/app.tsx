@@ -44,8 +44,8 @@ function App() {
 
     const openModalIngredients = (productId) => {
         let product = data.filter(product => product._id === productId.currentTarget.id)
-        setModalOrder(false)
         setSelectedProduct([product[0]])
+        setModalOrder(false)
         setVisible(true)
     }
 
@@ -88,7 +88,6 @@ function App() {
         if (e.key === "Escape") {
             closeModal()
         }
-
     }
 
     React.useEffect(() => {

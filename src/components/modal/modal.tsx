@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 
 const modalRoot = document.getElementById('react-modals') as HTMLElement;
 
-const Modal = (children, title, onClick) => {
+const Modal = ({children, title, onClick}) => {
 
     return createPortal((
         <>

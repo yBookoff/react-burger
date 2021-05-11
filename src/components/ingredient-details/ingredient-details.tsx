@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./ingredient-details.module.css";
 
 
-function IngredientDetails(product)  {
+function IngredientDetails({product})  {
     return (
         <>
             <img src={product.image} alt="" />
