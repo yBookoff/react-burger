@@ -48,11 +48,18 @@ nav ul li span {
     padding-bottom: 15px;
 }
 
-@media (min-width: 1400px) {
+@media (min-width: 1200px) {
+    nav {
+        width: 90%;
+    }
+}
+
+@media (min-width: 1800px) {
     nav {
         width: 70%;
     }
 }
+
 
 
 

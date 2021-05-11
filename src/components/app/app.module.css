@@ -39,14 +39,12 @@
 
 .Main {
   padding-top: 20px;
-  width: 75%;
+  width: 90%;
   margin: auto;
-  display: flex;
 }
 
 .Section {
-  width: 50%;
-  float: left;
+  width: 100%;
   text-align: left;
   overflow-y:auto;
 }
@@ -84,7 +82,22 @@ h1 {
   float: right;
 }
 
-@media (min-width: 1400px) {
+.order_card {
+  display: flow-root;
+}
+
+@media (min-width: 1200px) {
+  .Main {
+    width: 90%;
+    display: flex;
+  }
+
+  .Section {
+    width: 50%;
+  }
+}
+
+@media (min-width: 1800px) {
   .Main {
     width: 70%;
   }

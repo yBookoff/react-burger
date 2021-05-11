@@ -8,9 +8,10 @@
 
 .drag-icon {
     margin-top: 26px;
+    margin-right: 10px;
 }
 
 .order-row {
     display: inline-flex;
-    width: 100%;
+    width: 90%;
 }

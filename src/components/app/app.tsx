@@ -180,17 +180,19 @@ function App() {
                         order.length > 0
                             ?
                             <>
-                                <ul className={styles.order_list}>
-                                    {order.map((product, index) => (
-                                        <li className="text text_type_main-default pb-6" key={index}>
-                                            <BurgerIngredients
-                                                {...product}
-                                                type={index === 0 ? 'top' : (index === order.length - 1 ? 'bottom' : null)}
-                                                isLocked={index === 0 || index === order.length - 1}
-                                            />
-                                        </li>
-                                    ))}
-                                </ul>
+                                <div className={styles.order_card}>
+                                    <ul className={styles.order_list}>
+                                        {order.map((product, index) => (
+                                            <li className="text text_type_main-default pb-6" key={index}>
+                                                <BurgerIngredients
+                                                    {...product}
+                                                    type={index === 0 ? 'top' : (index === order.length - 1 ? 'bottom' : null)}
+                                                    isLocked={index === 0 || index === order.length - 1}
+                                                />
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
                                 <div className={styles.total_price}>
                                     <span className="text text_type_digits-medium">{
                                         order.reduce((total, product) => (total + product.price), 0)
