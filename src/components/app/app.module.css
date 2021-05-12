@@ -39,14 +39,12 @@
 
 .Main {
   padding-top: 20px;
-  width: 70%;
+  width: 90%;
   margin: auto;
-  display: flex;
 }
 
 .Section {
-  width: 50%;
-  float: left;
+  width: 100%;
   text-align: left;
   overflow-y:auto;
 }
@@ -65,24 +63,42 @@ h1 {
 }
 
 .total_price {
+  padding-top: 30px;
   float: right;
-  padding-right: 15px;
 }
 
 .total_price span {
   vertical-align: middle;
   display: inline-flex;
   align-items: center;
-  padding-right: 20px;
+  padding-right: 30px;
 }
 
-@media (max-width: 1600px) {
+.posCenter {
+  text-align: center;
+}
+
+.order_list {
+  float: right;
+}
+
+.order_card {
+  display: flow-root;
+}
+
+@media (min-width: 1200px) {
   .Main {
-    display: block;
+    width: 90%;
+    display: flex;
   }
 
   .Section {
-    float: none;
-    width: 100%;
+    width: 50%;
+  }
+}
+
+@media (min-width: 1800px) {
+  .Main {
+    width: 70%;
   }
 }

@@ -1,23 +1,32 @@
 header {
     background-color: #1c1c21;
+    margin-bottom: 20px;
 }
 
 nav {
-    width: 70%;
     margin: auto !important;
-    color: #8585AD;
-    display: flex;
     justify-content: space-between;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    width: 75%;
+}
+
+.navbarbrand {
+    padding-top: .3125rem;
+    padding-bottom: .3125rem;
 }
 
 ul {
     list-style-type: none;
-    padding-left: 0px;
-    margin-left: 0px;
+    margin-bottom: 0;
+    padding-left: 0;
 }
 
 ul li {
-    padding: 0px 10px;
+    padding-right: 20px;
 }
 
 ul.left li {
@@ -33,12 +42,24 @@ li span.active {
     color: white;
 }
 
-li span {
-    padding-left: 5px;
+nav ul li span {
     display: inline-block;
     vertical-align: middle;
     padding-bottom: 15px;
 }
+
+@media (min-width: 1200px) {
+    nav {
+        width: 90%;
+    }
+}
+
+@media (min-width: 1800px) {
+    nav {
+        width: 70%;
+    }
+}
+
 
 
 

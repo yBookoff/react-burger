@@ -1,0 +1,26 @@
+.Modal {
+    position: fixed;
+    width: 500px;
+    min-height: 300px;
+    margin-left: -250px;
+    z-index: 2;
+    left: 50%;
+    top: 20%;
+    background-color: #1c1c21;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 0 10px #8585AD;
+    text-align: center;
+}
+
+.CloseButton {
+    display: flex;
+}
+
+.CloseButton p {
+    margin-right: auto;
+}
+
+.CloseButton span {
+    margin-left: auto;
+}
