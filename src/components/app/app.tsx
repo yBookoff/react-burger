@@ -2,8 +2,8 @@ import React from 'react';
 import styles from './app.module.css';
 
 import AppHeader from '../app-header/app-header';
-import BurgerConstructor from '../burger-constructor/burger-constructor';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
+import BurgerConstructor from "../burger-constructor/burger-constructor";
 import IngredientDetail from '../ingredient-details/ingredient-details';
 import OrderDetails from '../order-details/order-details';
 import Modal from '../modal/modal';
@@ -136,7 +136,7 @@ function App() {
                                 {data.filter(product => product.type === 'bun').map((product) => (
                                     <div key={product._id} >
                                         <div onClick={openModalIngredients} id={product._id}>
-                                            <BurgerConstructor {...product}/>
+                                            <BurgerIngredients {...product}/>
                                         </div>
                                         <div onClick={addProduct} id={product._id} className={styles.posCenter}><Button
                                             type="secondary">Добавить</Button></div>
@@ -149,7 +149,7 @@ function App() {
                                 {data.filter(product => product.type === 'sauce').map((product) => (
                                     <div key={product._id} >
                                         <div onClick={openModalIngredients} id={product._id}>
-                                            <BurgerConstructor {...product}/>
+                                            <BurgerIngredients {...product}/>
                                         </div>
                                         <div onClick={addProduct} id={product._id} className={styles.posCenter}><Button
                                             type="secondary">Добавить</Button></div>
@@ -162,7 +162,7 @@ function App() {
                                 {data.filter(product => product.type === 'main').map((product) => (
                                     <div key={product._id} >
                                         <div onClick={openModalIngredients} id={product._id}>
-                                            <BurgerConstructor {...product}/>
+                                            <BurgerIngredients {...product}/>
                                         </div>
                                         <div onClick={addProduct} id={product._id} className={styles.posCenter}><Button
                                             type="secondary">Добавить</Button></div>
@@ -184,7 +184,7 @@ function App() {
                                     <ul className={styles.order_list}>
                                         {order.map((product, index) => (
                                             <li className="text text_type_main-default pb-6" key={index}>
-                                                <BurgerIngredients
+                                                <BurgerConstructor
                                                     {...product}
                                                     type={index === 0 ? 'top' : (index === order.length - 1 ? 'bottom' : null)}
                                                     isLocked={index === 0 || index === order.length - 1}
