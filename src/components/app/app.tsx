@@ -9,6 +9,8 @@ import OrderDetails from '../order-details/order-details';
 import Modal from '../modal/modal';
 import { Tab, Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
+import {burgerContext} from "../../services/burgerContext";
+
 
 
 interface IData {
@@ -97,6 +99,10 @@ function App() {
         }
     })
 
+    // @ts-ignore
+    // @ts-ignore
+    // @ts-ignore
+    // @ts-ignore
     return (
         <div className={styles.App}>
             <AppHeader/>
@@ -179,34 +185,21 @@ function App() {
                     {
                         order.length > 0
                             ?
-                            <>
-                                <div className={styles.order_card}>
-                                    <ul className={styles.order_list}>
-                                        {order.map((product, index) => (
-                                            <li className="text text_type_main-default pb-6" key={index}>
-                                                <BurgerConstructor
-                                                    {...product}
-                                                    type={index === 0 ? 'top' : (index === order.length - 1 ? 'bottom' : null)}
-                                                    isLocked={index === 0 || index === order.length - 1}
-                                                />
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                                <div className={styles.total_price}>
-                                    <span className="text text_type_digits-medium">{
-                                        order.reduce((total, product) => (total + product.price), 0)
-                                    }&nbsp;<CurrencyIcon type="primary"/>
-                                    </span>
-                                    <Button onClick={openModalOrder}>Оформить заказ</Button>
-                                </div>
-                            </>
+                                <>
+                                    <BurgerConstructor order={order} />
+                                    <div className={styles.total_price}>
+                                                <span className="text text_type_digits-medium">{
+                                                    order.reduce((total, product) => (total + product.price), 0)
+                                                }&nbsp;<CurrencyIcon type="primary"/>
+                                                </span>
+                                        <Button onClick={openModalOrder}>Оформить заказ</Button>
+                                    </div>
+                                </>
                             :
                             <div className={styles.total_price}>
                                 <span className="text text_type_main-default pt-10">Выберите ингреденты для космо-бургера</span>
                             </div>
                     }
-
                 </section>
             </main>
         </div>
