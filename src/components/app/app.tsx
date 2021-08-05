@@ -9,7 +9,7 @@ import OrderDetails from '../order-details/order-details';
 import Modal from '../modal/modal';
 import { Tab, Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import {burgerContext} from "../../services/burgerContext";
+import {BurgerContext} from "../../services/burgerContext";
 
 
 
@@ -99,10 +99,6 @@ function App() {
         }
     })
 
-    // @ts-ignore
-    // @ts-ignore
-    // @ts-ignore
-    // @ts-ignore
     return (
         <div className={styles.App}>
             <AppHeader/>
@@ -185,8 +181,8 @@ function App() {
                     {
                         order.length > 0
                             ?
-                                <>
-                                    <BurgerConstructor order={order} />
+                                <BurgerContext.Provider value={order}>
+                                    <BurgerConstructor />
                                     <div className={styles.total_price}>
                                                 <span className="text text_type_digits-medium">{
                                                     order.reduce((total, product) => (total + product.price), 0)
@@ -194,7 +190,7 @@ function App() {
                                                 </span>
                                         <Button onClick={openModalOrder}>Оформить заказ</Button>
                                     </div>
-                                </>
+                                </BurgerContext.Provider>
                             :
                             <div className={styles.total_price}>
                                 <span className="text text_type_main-default pt-10">Выберите ингреденты для космо-бургера</span>

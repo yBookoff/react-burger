@@ -1,3 +1,5 @@
 import React from "react";
+import IData from '../components/app/app';
 
-export const burgerContext = React.createContext([]);
+// @ts-ignore
+export const BurgerContext = React.createContext<IData[]>([]);
