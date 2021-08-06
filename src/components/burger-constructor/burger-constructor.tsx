@@ -42,8 +42,8 @@ function BurgerConstructor() {
                                 thumbnail={product.image}
                                 text={product.name}
                                 price={product.price}
-                                isLocked={index === 0 || index === order.length - 1}
-                                type={product.type === 'bun' ? (index === 0 ? 'top' : 'bottom') : undefined}
+                                isLocked={false}
+                                type={undefined}
                             />
                         </div>
                     </li>

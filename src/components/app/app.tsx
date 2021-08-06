@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useReducer} from 'react';
 import styles from './app.module.css';
 
 import AppHeader from '../app-header/app-header';
@@ -44,6 +44,23 @@ function App() {
     const [selectedProduct, setSelectedProduct] = React.useState<IData[]>([])
     const [modalOrder, setModalOrder] = React.useState(false)
 
+    const priceStateInit = {price: 0};
+
+    function priceReducer(state, action) {
+        switch (action.type) {
+            case 'bun':
+                return {
+                    price: state.price + action.price*2
+                }
+            default:
+                return {
+                    price: state.price + action.price
+                }
+        }
+    }
+
+    const [statePrice, dispatch] = useReducer(priceReducer, priceStateInit)
+
     const openModalIngredients = (productId) => {
         let product = data.filter(product => product._id === productId.currentTarget.id)
         setSelectedProduct([product[0]])
@@ -82,6 +99,10 @@ function App() {
         if (!(product[0].type === 'bun' && isBun > 0)) {
             setOrder([...order, product[0]])
             product[0].counter ? product[0].counter += 1 : product[0].counter = 1
+            dispatch({
+                type: product[0].type,
+                price: product[0].price
+            })
         }
     }
 
@@ -188,7 +209,7 @@ function App() {
                                     <BurgerConstructor />
                                     <div className={styles.total_price}>
                                                 <span className="text text_type_digits-medium">{
-                                                    order.reduce((total, product) => (total + product.price), 0)
+                                                    statePrice.price
                                                 }&nbsp;<CurrencyIcon type="primary"/>
                                                 </span>
                                         <Button onClick={openModalOrder}>Оформить заказ</Button>
