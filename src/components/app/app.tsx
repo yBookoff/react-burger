@@ -31,7 +31,8 @@ interface IData {
 
 function App() {
 
-    const url = 'https://norma.nomoreparties.space/api/ingredients'
+    const urlIngredients = 'https://norma.nomoreparties.space/api/ingredients'
+    const urlOrder = 'https://norma.nomoreparties.space/api/orders'
 
     const [isLoading, setLoading] = React.useState(false)
     const [current, setCurrent] = React.useState('bun')
@@ -43,6 +44,7 @@ function App() {
 
     const [selectedProduct, setSelectedProduct] = React.useState<IData[]>([])
     const [modalOrder, setModalOrder] = React.useState(false)
+    const [numberOrder, setNumberOrder] = React.useState(0)
 
     const priceStateInit = {price: 0};
 
@@ -69,6 +71,8 @@ function App() {
     }
 
     const openModalOrder = () => {
+        let orderIdsList = order.map(product => product._id)
+        getOrder(orderIdsList)
         setModalOrder(true)
         setVisible(true)
     }
@@ -83,13 +87,32 @@ function App() {
         setError(false)
 
         try {
-            const response = await fetch(url)
+            const response = await fetch(urlIngredients)
             const dataResponse = await response.json()
             setData(dataResponse.data)
         } catch {
             setLoading(false)
             setError(true)
             console.log('Data loading failed')
+        }
+    }
+
+    const getOrder = async (orderIds) => {
+        try {
+            const response = await fetch(urlOrder, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+                body: JSON.stringify({
+                    'ingredients': orderIds
+                })
+            })
+            const dataResponse = await response.json()
+            setNumberOrder(dataResponse.order.number)
+            console.log(dataResponse)
+        } catch {
+            console.log('Order loading failed')
         }
     }
 
@@ -132,7 +155,7 @@ function App() {
                     {
                         modalOrder
                         ?
-                            <OrderDetails />
+                            <OrderDetails orderNumber={numberOrder}/>
                         :
                             <IngredientDetail product={selectedProduct[0]}/>
                     }

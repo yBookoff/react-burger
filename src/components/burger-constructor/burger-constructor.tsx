@@ -51,7 +51,7 @@ function BurgerConstructor() {
                 {
                     bun.length > 0
                         ?
-                        <li className="text text_type_main-default pb-6" key={-1}>
+                        <li className="text text_type_main-default pb-6" key={order.length+1}>
                             <div className="order-row">
                                 <div className="drag-icon">
                                     <span className="pl-6"> </span>
