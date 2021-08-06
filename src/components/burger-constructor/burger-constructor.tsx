@@ -1,7 +1,6 @@
 import React, {useContext} from "react";
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import "./burger-constructor.css";
-import styles from "../app/app.module.css";
 import {BurgerContext} from "../../services/burgerContext";
 
 
@@ -11,8 +10,8 @@ function BurgerConstructor() {
     console.log('order:', order)
 
     return (
-        <div className={styles.order_card}>
-            <ul className={styles.order_list}>
+        <div className="order_card">
+            <ul className="order_list">
                 {order.map((product, index) => (
                     <li className="text text_type_main-default pb-6" key={index}>
                         <div className="order-row">
