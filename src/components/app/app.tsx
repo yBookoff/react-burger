@@ -78,8 +78,11 @@ function App() {
 
     const addProduct = (productId) => {
         let product = data.filter(product => product._id === productId.currentTarget.id)
-        setOrder([...order, product[0]])
-        product[0].counter ? product[0].counter += 1 : product[0].counter = 1
+        let isBun = order.filter(product => product.type === 'bun').length
+        if (!(product[0].type === 'bun' && isBun > 0)) {
+            setOrder([...order, product[0]])
+            product[0].counter ? product[0].counter += 1 : product[0].counter = 1
+        }
     }
 
     React.useEffect(() => {

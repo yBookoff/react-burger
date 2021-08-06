@@ -7,34 +7,67 @@ import {BurgerContext} from "../../services/burgerContext";
 function BurgerConstructor() {
 
     const order = useContext(BurgerContext)
-    console.log('order:', order)
+    const bun = order.filter(product => product.type === 'bun')
 
     return (
         <div className="order_card">
             <ul className="order_list">
-                {order.map((product, index) => (
+                {
+                    bun.length > 0
+                    ?
+                    <li className="text text_type_main-default pb-6" key={-1}>
+                        <div className="order-row">
+                            <div className="drag-icon">
+                                <span className="pl-6"> </span>
+                            </div>
+                            <ConstructorElement
+                                thumbnail={bun[0].image}
+                                text={bun[0].name}
+                                price={bun[0].price}
+                                isLocked={true}
+                                type='top'
+                            />
+                        </div>
+                    </li>
+                    :
+                    null
+                }
+                {order.filter(product => product.type !== 'bun').map((product, index) => (
                     <li className="text text_type_main-default pb-6" key={index}>
                         <div className="order-row">
                             <div className="drag-icon">
-                                {
-                                    (index < 1 || index > order.length - 2)
-                                    ?
-                                    <span className="pl-6"> </span>
-                                    :
-                                    <DragIcon type="primary" />
-
-                                }
+                                <DragIcon type="primary" />
                             </div>
                             <ConstructorElement
                                 thumbnail={product.image}
                                 text={product.name}
                                 price={product.price}
                                 isLocked={index === 0 || index === order.length - 1}
-                                type={index === 0 ? 'top' : (index === order.length - 1 ? 'bottom' : undefined)}
+                                type={product.type === 'bun' ? (index === 0 ? 'top' : 'bottom') : undefined}
                             />
                         </div>
                     </li>
                 ))}
+                {
+                    bun.length > 0
+                        ?
+                        <li className="text text_type_main-default pb-6" key={-1}>
+                            <div className="order-row">
+                                <div className="drag-icon">
+                                    <span className="pl-6"> </span>
+                                </div>
+                                <ConstructorElement
+                                    thumbnail={bun[0].image}
+                                    text={bun[0].name}
+                                    price={bun[0].price}
+                                    isLocked={true}
+                                    type='bottom'
+                                />
+                            </div>
+                        </li>
+                        :
+                        null
+                }
             </ul>
         </div>
     )
