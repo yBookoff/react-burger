@@ -88,6 +88,9 @@ function App() {
 
         try {
             const response = await fetch(urlIngredients)
+            if (!response.ok) {
+                throw new Error("Response isn't ok")
+            }
             const dataResponse = await response.json()
             setData(dataResponse.data)
         } catch {
@@ -108,6 +111,9 @@ function App() {
                     'ingredients': orderIds
                 })
             })
+            if (!response.ok) {
+                throw new Error("Response isn't ok")
+            }
             const dataResponse = await response.json()
             setNumberOrder(dataResponse.order.number)
             console.log(dataResponse)
