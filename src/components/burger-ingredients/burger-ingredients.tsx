@@ -1,38 +1,32 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import "./burger-ingredients.css";
+import { CurrencyIcon, Counter } from "@ya.praktikum/react-developer-burger-ui-components/dist/index.js";
+import styles from './burger-ingredients.module.css';
 
 
 function BurgerIngredients(props) {
     return (
-        <div className="order-row">
-            <div className="drag-icon">
-                {props.type
-                    ?
-                    <span className="pl-6"></span>
-                    :
-                    <DragIcon type="primary" />
+        <div className={styles.Card}>
 
-                }
+            <img src={props.image} alt=""/>
+            <div className={styles.CardPrice}>
+                <span className="text text_type_digits-default">
+                    {props.price} <CurrencyIcon type="primary" />
+                </span>
             </div>
-            <ConstructorElement
-                thumbnail={props.image}
-                text={props.name}
-                price={props.price}
-                isLocked={props.isLocked}
-                type={props.type}
-            />
+            <div className="text text_type_main-default">
+                {props.name}
+            </div>
+            { props.counter > 0 ? <Counter count={props.counter} size="default" /> : <span> </span>}
         </div>
     )
-};
+}
 
 BurgerIngredients.propTypes = {
     image: PropTypes.string,
-    name: PropTypes.string,
     price: PropTypes.number,
-    isLocked: PropTypes.bool,
-    type: PropTypes.string
+    name: PropTypes.string,
+    counter: PropTypes.number,
 }
 
 export default BurgerIngredients;

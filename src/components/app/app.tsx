@@ -1,13 +1,15 @@
-import React from 'react';
+import React, {useReducer} from 'react';
 import styles from './app.module.css';
 
 import AppHeader from '../app-header/app-header';
-import BurgerConstructor from '../burger-constructor/burger-constructor';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
+import BurgerConstructor from "../burger-constructor/burger-constructor";
 import IngredientDetail from '../ingredient-details/ingredient-details';
 import OrderDetails from '../order-details/order-details';
 import Modal from '../modal/modal';
 import { Tab, Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+
+import {BurgerContext} from "../../services/burgerContext";
 
 
 
@@ -29,7 +31,8 @@ interface IData {
 
 function App() {
 
-    const url = 'https://norma.nomoreparties.space/api/ingredients'
+    const urlIngredients = 'https://norma.nomoreparties.space/api/ingredients'
+    const urlOrder = 'https://norma.nomoreparties.space/api/orders'
 
     const [isLoading, setLoading] = React.useState(false)
     const [current, setCurrent] = React.useState('bun')
@@ -41,6 +44,24 @@ function App() {
 
     const [selectedProduct, setSelectedProduct] = React.useState<IData[]>([])
     const [modalOrder, setModalOrder] = React.useState(false)
+    const [numberOrder, setNumberOrder] = React.useState(0)
+
+    const priceStateInit = {price: 0};
+
+    function priceReducer(state, action) {
+        switch (action.type) {
+            case 'bun':
+                return {
+                    price: state.price + action.price*2
+                }
+            default:
+                return {
+                    price: state.price + action.price
+                }
+        }
+    }
+
+    const [statePrice, dispatch] = useReducer(priceReducer, priceStateInit)
 
     const openModalIngredients = (productId) => {
         let product = data.filter(product => product._id === productId.currentTarget.id)
@@ -50,6 +71,8 @@ function App() {
     }
 
     const openModalOrder = () => {
+        let orderIdsList = order.map(product => product._id)
+        getOrder(orderIdsList)
         setModalOrder(true)
         setVisible(true)
     }
@@ -64,7 +87,10 @@ function App() {
         setError(false)
 
         try {
-            const response = await fetch(url)
+            const response = await fetch(urlIngredients)
+            if (!response.ok) {
+                throw new Error("Response isn't ok")
+            }
             const dataResponse = await response.json()
             setData(dataResponse.data)
         } catch {
@@ -74,10 +100,39 @@ function App() {
         }
     }
 
+    const getOrder = async (orderIds) => {
+        try {
+            const response = await fetch(urlOrder, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+                body: JSON.stringify({
+                    'ingredients': orderIds
+                })
+            })
+            if (!response.ok) {
+                throw new Error("Response isn't ok")
+            }
+            const dataResponse = await response.json()
+            setNumberOrder(dataResponse.order.number)
+            console.log(dataResponse)
+        } catch {
+            console.log('Order loading failed')
+        }
+    }
+
     const addProduct = (productId) => {
         let product = data.filter(product => product._id === productId.currentTarget.id)
-        setOrder([...order, product[0]])
-        product[0].counter ? product[0].counter += 1 : product[0].counter = 1
+        let isBun = order.filter(product => product.type === 'bun').length
+        if (!(product[0].type === 'bun' && isBun > 0)) {
+            setOrder([...order, product[0]])
+            product[0].counter ? product[0].counter += 1 : product[0].counter = 1
+            dispatch({
+                type: product[0].type,
+                price: product[0].price
+            })
+        }
     }
 
     React.useEffect(() => {
@@ -106,7 +161,7 @@ function App() {
                     {
                         modalOrder
                         ?
-                            <OrderDetails />
+                            <OrderDetails orderNumber={numberOrder}/>
                         :
                             <IngredientDetail product={selectedProduct[0]}/>
                     }
@@ -136,7 +191,7 @@ function App() {
                                 {data.filter(product => product.type === 'bun').map((product) => (
                                     <div key={product._id} >
                                         <div onClick={openModalIngredients} id={product._id}>
-                                            <BurgerConstructor {...product}/>
+                                            <BurgerIngredients {...product}/>
                                         </div>
                                         <div onClick={addProduct} id={product._id} className={styles.posCenter}><Button
                                             type="secondary">Добавить</Button></div>
@@ -149,7 +204,7 @@ function App() {
                                 {data.filter(product => product.type === 'sauce').map((product) => (
                                     <div key={product._id} >
                                         <div onClick={openModalIngredients} id={product._id}>
-                                            <BurgerConstructor {...product}/>
+                                            <BurgerIngredients {...product}/>
                                         </div>
                                         <div onClick={addProduct} id={product._id} className={styles.posCenter}><Button
                                             type="secondary">Добавить</Button></div>
@@ -162,7 +217,7 @@ function App() {
                                 {data.filter(product => product.type === 'main').map((product) => (
                                     <div key={product._id} >
                                         <div onClick={openModalIngredients} id={product._id}>
-                                            <BurgerConstructor {...product}/>
+                                            <BurgerIngredients {...product}/>
                                         </div>
                                         <div onClick={addProduct} id={product._id} className={styles.posCenter}><Button
                                             type="secondary">Добавить</Button></div>
@@ -179,34 +234,21 @@ function App() {
                     {
                         order.length > 0
                             ?
-                            <>
-                                <div className={styles.order_card}>
-                                    <ul className={styles.order_list}>
-                                        {order.map((product, index) => (
-                                            <li className="text text_type_main-default pb-6" key={index}>
-                                                <BurgerIngredients
-                                                    {...product}
-                                                    type={index === 0 ? 'top' : (index === order.length - 1 ? 'bottom' : null)}
-                                                    isLocked={index === 0 || index === order.length - 1}
-                                                />
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                                <div className={styles.total_price}>
-                                    <span className="text text_type_digits-medium">{
-                                        order.reduce((total, product) => (total + product.price), 0)
-                                    }&nbsp;<CurrencyIcon type="primary"/>
-                                    </span>
-                                    <Button onClick={openModalOrder}>Оформить заказ</Button>
-                                </div>
-                            </>
+                                <BurgerContext.Provider value={order}>
+                                    <BurgerConstructor />
+                                    <div className={styles.total_price}>
+                                                <span className="text text_type_digits-medium">{
+                                                    statePrice.price
+                                                }&nbsp;<CurrencyIcon type="primary"/>
+                                                </span>
+                                        <Button onClick={openModalOrder}>Оформить заказ</Button>
+                                    </div>
+                                </BurgerContext.Provider>
                             :
                             <div className={styles.total_price}>
                                 <span className="text text_type_main-default pt-10">Выберите ингреденты для космо-бургера</span>
                             </div>
                     }
-
                 </section>
             </main>
         </div>

@@ -78,14 +78,6 @@ h1 {
   text-align: center;
 }
 
-.order_list {
-  float: right;
-}
-
-.order_card {
-  display: flow-root;
-}
-
 @media (min-width: 1200px) {
   .Main {
     width: 90%;

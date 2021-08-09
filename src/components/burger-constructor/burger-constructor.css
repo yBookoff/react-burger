@@ -15,3 +15,11 @@
     display: inline-flex;
     width: 90%;
 }
+
+.order_card {
+    display: flow-root;
+}
+
+.order_list {
+    float: right;
+}
