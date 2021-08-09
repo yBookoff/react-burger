@@ -29,6 +29,19 @@ interface IData {
     counter: number;
 }
 
+function priceReducer(state, action) {
+    switch (action.type) {
+        case 'bun':
+            return {
+                price: state.price + action.price*2
+            }
+        default:
+            return {
+                price: state.price + action.price
+            }
+    }
+}
+
 function App() {
 
     const urlIngredients = 'https://norma.nomoreparties.space/api/ingredients'
@@ -47,19 +60,6 @@ function App() {
     const [numberOrder, setNumberOrder] = React.useState(0)
 
     const priceStateInit = {price: 0};
-
-    function priceReducer(state, action) {
-        switch (action.type) {
-            case 'bun':
-                return {
-                    price: state.price + action.price*2
-                }
-            default:
-                return {
-                    price: state.price + action.price
-                }
-        }
-    }
 
     const [statePrice, dispatch] = useReducer(priceReducer, priceStateInit)
 
