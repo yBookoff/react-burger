@@ -1,4 +1,4 @@
-import React, {useReducer} from 'react';
+import React from 'react';
 import styles from './app.module.css';
 
 import AppHeader from '../app-header/app-header';
@@ -9,135 +9,82 @@ import OrderDetails from '../order-details/order-details';
 import Modal from '../modal/modal';
 import { Tab, Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import {BurgerContext} from "../../services/burgerContext";
+import {useDispatch, useSelector} from "react-redux";
+import {getAllIngredients} from "../../services/actions/all-ingredients";
+import {SELECTED_INGREDIENT_OFF, SELECTED_INGREDIENT_ON} from "../../services/actions/selected-ingredient";
+import {ADD_ID_ORDER, getOrder, MODAL_ORDER_OFF, MODAL_ORDER_ON} from "../../services/actions/order";
+import {ADD_INGREDIENT} from "../../services/actions/burger-constructor-ingredients";
 
-
-
-interface IData {
-    _id: string;
-    name: string;
-    type: string;
-    proteins: number;
-    fat: number;
-    carbohydrates: number;
-    calories: number;
-    price: number;
-    image: string;
-    image_mobile: string;
-    image_large: string;
-    __v: number;
-    counter: number;
-}
-
-function priceReducer(state, action) {
-    switch (action.type) {
-        case 'bun':
-            return {
-                price: state.price + action.price*2
-            }
-        default:
-            return {
-                price: state.price + action.price
-            }
-    }
-}
 
 function App() {
 
-    const urlIngredients = 'https://norma.nomoreparties.space/api/ingredients'
-    const urlOrder = 'https://norma.nomoreparties.space/api/orders'
+    const dispatch = useDispatch()
 
-    const [isLoading, setLoading] = React.useState(false)
-    const [current, setCurrent] = React.useState('bun')
-    const [hasError, setError] = React.useState(false)
-    const [data, setData] = React.useState<IData[]>([])
+    React.useEffect(() => {
+        dispatch(getAllIngredients())
+    }, [dispatch]);
 
-    const [order, setOrder] = React.useState<IData[]>([])
-    const [visible, setVisible] = React.useState(false)
-
-    const [selectedProduct, setSelectedProduct] = React.useState<IData[]>([])
-    const [modalOrder, setModalOrder] = React.useState(false)
-    const [numberOrder, setNumberOrder] = React.useState(0)
-
-    const priceStateInit = {price: 0};
-
-    const [statePrice, dispatch] = useReducer(priceReducer, priceStateInit)
+    // @ts-ignore
+    const data = useSelector(state => state.allIngredients.allIngredientsList)
+    // @ts-ignore
+    const order = useSelector(state => state.order.orderList)
 
     const openModalIngredients = (productId) => {
         let product = data.filter(product => product._id === productId.currentTarget.id)
-        setSelectedProduct([product[0]])
-        setModalOrder(false)
-        setVisible(true)
+        // setSelectedProduct([product[0]])
+        dispatch({
+            type: SELECTED_INGREDIENT_ON,
+            ingredient: product[0]
+        })
+        dispatch({
+            type: MODAL_ORDER_OFF,
+        })
     }
 
     const openModalOrder = () => {
         let orderIdsList = order.map(product => product._id)
-        getOrder(orderIdsList)
-        setModalOrder(true)
-        setVisible(true)
+        console.log(orderIdsList)
+        // getOrder(orderIdsList)
+        dispatch(getOrder(orderIdsList))
+        // setModalOrder(true)
+        dispatch({
+            type: MODAL_ORDER_ON
+        })
     }
 
     const closeModal = () => {
-        setVisible(false)
-        setSelectedProduct([])
-    }
-
-    const getProducts = async () => {
-        setLoading(true)
-        setError(false)
-
-        try {
-            const response = await fetch(urlIngredients)
-            if (!response.ok) {
-                throw new Error("Response isn't ok")
-            }
-            const dataResponse = await response.json()
-            setData(dataResponse.data)
-        } catch {
-            setLoading(false)
-            setError(true)
-            console.log('Data loading failed')
-        }
-    }
-
-    const getOrder = async (orderIds) => {
-        try {
-            const response = await fetch(urlOrder, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json;charset=utf-8'
-                },
-                body: JSON.stringify({
-                    'ingredients': orderIds
-                })
-            })
-            if (!response.ok) {
-                throw new Error("Response isn't ok")
-            }
-            const dataResponse = await response.json()
-            setNumberOrder(dataResponse.order.number)
-            console.log(dataResponse)
-        } catch {
-            console.log('Order loading failed')
-        }
+        // setVisible(false)
+        dispatch({
+            type: SELECTED_INGREDIENT_OFF
+        })
+        // setSelectedProduct([])
+        dispatch({
+            type: MODAL_ORDER_OFF
+        })
     }
 
     const addProduct = (productId) => {
         let product = data.filter(product => product._id === productId.currentTarget.id)
         let isBun = order.filter(product => product.type === 'bun').length
+        console.log(product)
         if (!(product[0].type === 'bun' && isBun > 0)) {
-            setOrder([...order, product[0]])
-            product[0].counter ? product[0].counter += 1 : product[0].counter = 1
+            // setOrder([...order, product[0]])
             dispatch({
-                type: product[0].type,
-                price: product[0].price
+                type: ADD_INGREDIENT,
+                ingredient: product[0]
+            })
+            product[0].counter ? product[0].counter += 1 : product[0].counter = 1
+            // dispatch({
+            //     type: product[0].type,
+            //     price: product[0].price
+            // })
+            dispatch({
+                type: ADD_ID_ORDER,
+                ingredient: product[0],
+                price: product[0].type === 'bun' ? product[0].price*2 : product[0].price
             })
         }
     }
-
-    React.useEffect(() => {
-        getProducts();
-    }, []);
 
     const handleKeyUp = (e) => {
         if (e.key === "Escape") {
@@ -152,18 +99,35 @@ function App() {
         }
     })
 
+    // @ts-ignore
+    const visibleModalIngredient = useSelector(state => state.selectedIngredient.selected)
+    // @ts-ignore
+    const visibleNodalOrder = useSelector(state => state.order.orderModalShow)
+    // @ts-ignore
+    const numberOrder = useSelector(state => state.order.orderNum)
+    // @ts-ignore
+    const selectedProduct = useSelector(state => state.selectedIngredient.ingredient)
+
+    const [current, setCurrent] = React.useState('bun')
+    // @ts-ignore
+    const isLoading = useSelector(state => state.allIngredients.ingredientsLoadRequest)
+    // @ts-ignore
+    const hasError = useSelector(state => state.allIngredients.ingredientsLoadError)
+    // @ts-ignore
+    const price = useSelector(state => state.order.orderPrice)
+
     return (
         <div className={styles.App}>
             <AppHeader/>
             <div style={{overflow: 'hidden'}}>
-                {visible &&
-                <Modal onClick={closeModal} title={modalOrder ? '' : 'Детали ингредиента'}>
+                {(visibleModalIngredient || visibleNodalOrder) &&
+                <Modal onClick={closeModal} title={visibleNodalOrder ? '' : 'Детали ингредиента'}>
                     {
-                        modalOrder
+                        visibleNodalOrder
                         ?
                             <OrderDetails orderNumber={numberOrder}/>
                         :
-                            <IngredientDetail product={selectedProduct[0]}/>
+                            <IngredientDetail product={selectedProduct}/>
                     }
                 </Modal>
                 }
@@ -183,7 +147,7 @@ function App() {
                             Начинки
                         </Tab>
                     </div>
-                    {isLoading && !(hasError)
+                    {!(isLoading) && !(hasError)
                         ?
                         <>
                             <h2 className="text text_type_main-medium pt-4">Булки</h2>
@@ -227,6 +191,7 @@ function App() {
                         </>
                         :
                         <p>Что-то пошло не так :-(</p>
+
                     }
 
                 </section>
@@ -234,16 +199,16 @@ function App() {
                     {
                         order.length > 0
                             ?
-                                <BurgerContext.Provider value={order}>
-                                    <BurgerConstructor />
-                                    <div className={styles.total_price}>
-                                                <span className="text text_type_digits-medium">{
-                                                    statePrice.price
-                                                }&nbsp;<CurrencyIcon type="primary"/>
-                                                </span>
-                                        <Button onClick={openModalOrder}>Оформить заказ</Button>
-                                    </div>
-                                </BurgerContext.Provider>
+                            <>
+                                <BurgerConstructor />
+                                <div className={styles.total_price}>
+                                            <span className="text text_type_digits-medium">{
+                                                price
+                                            }&nbsp;<CurrencyIcon type="primary"/>
+                                            </span>
+                                    <Button onClick={openModalOrder}>Оформить заказ</Button>
+                                </div>
+                            </>
                             :
                             <div className={styles.total_price}>
                                 <span className="text text_type_main-default pt-10">Выберите ингреденты для космо-бургера</span>

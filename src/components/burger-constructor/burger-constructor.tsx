@@ -1,12 +1,13 @@
-import React, {useContext} from "react";
+import React from "react";
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import "./burger-constructor.css";
-import {BurgerContext} from "../../services/burgerContext";
+import {useSelector} from "react-redux";
 
 
 function BurgerConstructor() {
 
-    const order = useContext(BurgerContext)
+    // @ts-ignore
+    const order = useSelector(state => state.order.orderList)
     const bun = order.filter(product => product.type === 'bun')
 
     return (
