@@ -14,6 +14,8 @@ import {getAllIngredients} from "../../services/actions/all-ingredients";
 import {SELECTED_INGREDIENT_OFF, SELECTED_INGREDIENT_ON} from "../../services/actions/selected-ingredient";
 import {ADD_ID_ORDER, getOrder, MODAL_ORDER_OFF, MODAL_ORDER_ON} from "../../services/actions/order";
 import {ADD_INGREDIENT} from "../../services/actions/burger-constructor-ingredients";
+import {DndProvider} from "react-dnd";
+import {HTML5Backend} from "react-dnd-html5-backend";
 
 
 function App() {
@@ -68,16 +70,11 @@ function App() {
         let isBun = order.filter(product => product.type === 'bun').length
         console.log(product)
         if (!(product[0].type === 'bun' && isBun > 0)) {
-            // setOrder([...order, product[0]])
             dispatch({
                 type: ADD_INGREDIENT,
                 ingredient: product[0]
             })
             product[0].counter ? product[0].counter += 1 : product[0].counter = 1
-            // dispatch({
-            //     type: product[0].type,
-            //     price: product[0].price
-            // })
             dispatch({
                 type: ADD_ID_ORDER,
                 ingredient: product[0],
@@ -132,8 +129,8 @@ function App() {
                 </Modal>
                 }
             </div>
-
-            <main className={styles.Main}>
+            <DndProvider backend={HTML5Backend}>
+                <main className={styles.Main}>
                 <section className={styles.Section}>
                     <h1 className="text text_type_main-large">Соберите бургер</h1>
                     <div style={{display: 'flex'}}>
@@ -149,7 +146,7 @@ function App() {
                     </div>
                     {!(isLoading) && !(hasError)
                         ?
-                        <>
+                        <div className={styles.ingredients_menu}>
                             <h2 className="text text_type_main-medium pt-4">Булки</h2>
                             <div className={styles.gridWrapper}>
                                 {data.filter(product => product.type === 'bun').map((product) => (
@@ -157,8 +154,6 @@ function App() {
                                         <div onClick={openModalIngredients} id={product._id}>
                                             <BurgerIngredients {...product}/>
                                         </div>
-                                        <div onClick={addProduct} id={product._id} className={styles.posCenter}><Button
-                                            type="secondary">Добавить</Button></div>
                                     </div>
                                 ))}
                             </div>
@@ -188,7 +183,7 @@ function App() {
                                     </div>
                                 ))}
                             </div>
-                        </>
+                        </div>
                         :
                         <p>Что-то пошло не так :-(</p>
 
@@ -196,26 +191,21 @@ function App() {
 
                 </section>
                 <section className={styles.Section}>
+                    <BurgerConstructor />
                     {
                         order.length > 0
-                            ?
-                            <>
-                                <BurgerConstructor />
-                                <div className={styles.total_price}>
-                                            <span className="text text_type_digits-medium">{
-                                                price
-                                            }&nbsp;<CurrencyIcon type="primary"/>
-                                            </span>
-                                    <Button onClick={openModalOrder}>Оформить заказ</Button>
-                                </div>
-                            </>
-                            :
+                            &&
                             <div className={styles.total_price}>
-                                <span className="text text_type_main-default pt-10">Выберите ингреденты для космо-бургера</span>
+                                        <span className="text text_type_digits-medium">{
+                                            price
+                                        }&nbsp;<CurrencyIcon type="primary"/>
+                                        </span>
+                                <Button onClick={openModalOrder}>Оформить заказ</Button>
                             </div>
                     }
                 </section>
             </main>
+            </DndProvider>
         </div>
     );
 }

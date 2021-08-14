@@ -78,6 +78,11 @@ h1 {
   text-align: center;
 }
 
+.ingredients_menu {
+  height: 900px;
+  overflow-y: scroll;
+}
+
 @media (min-width: 1200px) {
   .Main {
     width: 90%;

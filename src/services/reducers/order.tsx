@@ -65,7 +65,8 @@ export const order = (state = orderInitState, action) => {
         case MODAL_ORDER_OFF: {
             return {
                 ...state,
-                orderModalShow: false
+                orderModalShow: false,
+                orderNum: 0
             }
         }
         default: {
