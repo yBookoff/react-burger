@@ -27,8 +27,6 @@ export function getAllIngredients ()  {
         getProducts()
             .then((response) => {
                 if (response && response.success) {
-                    // @ts-ignore
-                    console.log(response.data)
                     dispatch({
                         type: GET_ALL_INGREDIENTS_SUCCESS,
                         // @ts-ignore

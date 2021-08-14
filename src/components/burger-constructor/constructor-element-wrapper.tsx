@@ -1,12 +1,11 @@
-import React from "react";
+import React, {useRef} from "react";
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDispatch, useSelector} from "react-redux";
-import {REMOVE_INGREDIENT} from "../../services/actions/burger-constructor-ingredients";
-import {REMOVE_ID_ORDER} from "../../services/actions/order";
-import {useDrag} from "react-dnd";
+import {DND_ORDER, REMOVE_ID_ORDER} from "../../services/actions/order";
+import {useDrag, useDrop} from "react-dnd";
 
 
-function ConstructorElementWrapper({product}) {
+function ConstructorElementWrapper({product, productIndex}) {
 
     const dispatch = useDispatch()
 
@@ -15,10 +14,6 @@ function ConstructorElementWrapper({product}) {
 
     const deleteIngredient = () => {
         let ingredient = data.filter(ingredient => ingredient._id === product._id)
-        dispatch({
-            type: REMOVE_INGREDIENT,
-            ingredient: ingredient[0]
-        })
         ingredient[0].counter = ingredient[0].counter - 1
         dispatch({
             type: REMOVE_ID_ORDER,
@@ -27,16 +22,70 @@ function ConstructorElementWrapper({product}) {
         })
     }
 
-    const [{ isDrag }, dragBurgerRef] = useDrag({
-        item: product,
+    const [, dragElement] = useDrag({
+        item: () => {
+            return {product, productIndex}
+        },
         type: "burger-list",
         collect: (monitor) => ({
             isDrag: monitor.isDragging()
         })
     })
 
+    const refDD = useRef(null)
+
+    const [{handlerElement}, dropElement] = useDrop({
+        accept: "burger-list",
+        collect(monitor) {
+            return {
+                handlerElement: monitor.getHandlerId
+            }
+        },
+        hover(item, monitor) {
+            if (!refDD.current) {
+                return
+            }
+
+            // @ts-ignore
+            const dragIndex = item.index
+            const hoverIndex = productIndex
+
+            if (dragIndex === hoverIndex) {
+                return;
+            }
+
+            // @ts-ignore
+            const hoverBoundingReact = refDD.current?.getBoundingClientRect()
+            const hoverMiddleY = (hoverBoundingReact.bottom - hoverBoundingReact.top) / 2
+
+            const clientOffset = monitor.getClientOffset()
+            // @ts-ignore
+            const hoverClientY = clientOffset.y - hoverBoundingReact.top
+
+            if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+                return;
+            }
+
+            if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+                return;
+            }
+
+            if (dragIndex !== undefined) {
+                dispatch({
+                    type: DND_ORDER,
+                    elements: {dragIndex, hoverIndex}
+                })
+            }
+
+            // @ts-ignore
+            item.index = hoverIndex
+        }
+    })
+
+    dragElement(dropElement(refDD))
+
     return (
-        <div className="order-row" ref={dragBurgerRef}>
+        <div className="order-row" ref={refDD} data-handler-id={handlerElement} key={productIndex}>
             <div className="drag-icon">
                 <DragIcon type="primary" />
             </div>

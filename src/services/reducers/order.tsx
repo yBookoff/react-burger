@@ -3,13 +3,16 @@ import {
     GET_ORDER_NUM_REQUEST,
     GET_ORDER_NUM_ERROR,
     ADD_ID_ORDER,
+    ADD_BUN_ORDER,
     REMOVE_ID_ORDER,
     MODAL_ORDER_ON,
-    MODAL_ORDER_OFF
+    MODAL_ORDER_OFF,
+    DND_ORDER
 } from "../actions/order";
 
 const orderInitState = {
     orderList: [],
+    bun: null,
     orderNum: 0,
     orderPrice: 0,
     getOrderNumRequest: false,
@@ -48,6 +51,13 @@ export const order = (state = orderInitState, action) => {
                 orderPrice: state.orderPrice + action.price
             }
         }
+        case ADD_BUN_ORDER: {
+            return {
+                ...state,
+                bun: action.bun,
+                orderPrice: state.orderPrice + action.price
+            }
+        }
         case REMOVE_ID_ORDER: {
             return {
                 ...state,
@@ -67,6 +77,19 @@ export const order = (state = orderInitState, action) => {
                 ...state,
                 orderModalShow: false,
                 orderNum: 0
+            }
+        }
+        case DND_ORDER: {
+            const { dragIndex, hoverIndex } = action.elements
+            const ingredientsList = [...state.orderList]
+            const dragElement = ingredientsList[dragIndex]
+            const hoverElement = ingredientsList[hoverIndex]
+
+            ingredientsList[hoverIndex] = dragElement
+            ingredientsList[dragIndex] = hoverElement
+            return {
+                ...state,
+                orderList: ingredientsList
             }
         }
         default: {

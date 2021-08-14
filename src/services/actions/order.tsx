@@ -4,7 +4,10 @@ export const GET_ORDER_NUM_REQUEST = 'GET_ORDER_NUM_REQUEST';
 export const GET_ORDER_NUM_ERROR = 'GET_ORDER_NUM_ERROR';
 export const GET_ORDER_NUM_SUCCESS = 'GET_ORDER_NUM_SUCCESS';
 export const ADD_ID_ORDER = 'ADD_ID_ORDER';
+export const ADD_BUN_ORDER = 'ADD_BUN_ORDER';
 export const REMOVE_ID_ORDER = 'REMOVE_ID_ORDER';
+export const DND_ORDER = 'DND_ORDER';
+
 
 
 const getOrderNumber = async (orderIds) => {
@@ -23,7 +26,6 @@ const getOrderNumber = async (orderIds) => {
             throw new Error("Response isn't ok")
         }
         const dataResponse = await response.json()
-        console.log(dataResponse.order.number)
         return dataResponse
     } catch {
         console.log('Order loading failed!')
