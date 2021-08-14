@@ -1,8 +1,9 @@
 import React from "react";
-import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
+import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDispatch, useSelector} from "react-redux";
 import {REMOVE_INGREDIENT} from "../../services/actions/burger-constructor-ingredients";
 import {REMOVE_ID_ORDER} from "../../services/actions/order";
+import {useDrag} from "react-dnd";
 
 
 function ConstructorElementWrapper({product}) {
@@ -26,15 +27,28 @@ function ConstructorElementWrapper({product}) {
         })
     }
 
+    const [{ isDrag }, dragBurgerRef] = useDrag({
+        item: product,
+        type: "burger-list",
+        collect: (monitor) => ({
+            isDrag: monitor.isDragging()
+        })
+    })
+
     return (
-        <ConstructorElement
-            thumbnail={product.image}
-            text={product.name}
-            price={product.price}
-            isLocked={false}
-            type={undefined}
-            handleClose={deleteIngredient}
-        />
+        <div className="order-row" ref={dragBurgerRef}>
+            <div className="drag-icon">
+                <DragIcon type="primary" />
+            </div>
+            <ConstructorElement
+                thumbnail={product.image}
+                text={product.name}
+                price={product.price}
+                isLocked={false}
+                type={undefined}
+                handleClose={deleteIngredient}
+            />
+        </div>
     )
 }
 

@@ -1,8 +1,8 @@
 import React from "react";
-import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
 import "./burger-constructor.css";
 import {useDispatch, useSelector} from "react-redux";
-import { useDrop } from "react-dnd";
+import {useDrop} from "react-dnd";
 import {ADD_INGREDIENT, REMOVE_INGREDIENT} from "../../services/actions/burger-constructor-ingredients";
 import {ADD_ID_ORDER, REMOVE_ID_ORDER} from "../../services/actions/order";
 import ConstructorElementWrapper from "./constructor-element-wrapper";
@@ -25,6 +25,16 @@ function BurgerConstructor() {
         },
         collect: monitor => ({
             isHover: monitor.isOver()
+        })
+    })
+
+    const [{isBurgerHover}, dropBurgerTarget] = useDrop({
+        accept: "burger-list",
+        drop(item) {
+            console.log(item)
+        },
+        collect: monitor => ({
+            isBurgerHover: monitor.isOver()
         })
     })
 
@@ -82,17 +92,13 @@ function BurgerConstructor() {
                                 :
                                 null
                         }
-                        {order.filter(product => product.type !== 'bun').map((product, index) => (
-                            <li className="text text_type_main-default pb-6" key={index}>
-                                <div className="order-row">
-                                    <div className="drag-icon">
-                                        <DragIcon type="primary" />
-                                    </div>
+                        <div ref={dropBurgerTarget}>
+                            {order.filter(product => product.type !== 'bun').map((product, index) => (
+                                <li className="text text_type_main-default pb-6" key={index}>
                                     <ConstructorElementWrapper product={product} />
-
-                                </div>
-                            </li>
-                        ))}
+                                </li>
+                            ))}
+                        </div>
                         {
                             bun.length > 0
                                 ?
