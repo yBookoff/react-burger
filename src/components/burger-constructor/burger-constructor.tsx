@@ -3,8 +3,9 @@ import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger
 import "./burger-constructor.css";
 import {useDispatch, useSelector} from "react-redux";
 import { useDrop } from "react-dnd";
-import {ADD_INGREDIENT} from "../../services/actions/burger-constructor-ingredients";
-import {ADD_ID_ORDER} from "../../services/actions/order";
+import {ADD_INGREDIENT, REMOVE_INGREDIENT} from "../../services/actions/burger-constructor-ingredients";
+import {ADD_ID_ORDER, REMOVE_ID_ORDER} from "../../services/actions/order";
+import ConstructorElementWrapper from "./constructor-element-wrapper";
 
 
 function BurgerConstructor() {
@@ -12,37 +13,51 @@ function BurgerConstructor() {
     const dispatch = useDispatch()
     // @ts-ignore
     const order = useSelector(state => state.order.orderList)
+    // @ts-ignore
+    const data = useSelector(state => state.allIngredients.allIngredientsList)
     const bun = order.filter(product => product.type === 'bun')
 
     // const deleteIngredient
-    const [, dropTarget] = useDrop({
+    const [{isHover}, dropTarget] = useDrop({
         accept: "card",
         drop(item) {
             onDropHandler(item)
-        }
+        },
+        collect: monitor => ({
+            isHover: monitor.isOver()
+        })
     })
 
     function onDropHandler(item) {
-        // наверное стоит вынести логику добавления булки, не булки в редьюсер
-        console.log(item)
-        let isBun = order.filter(product => product.type === 'bun').length
-        console.log(item)
-        if (!(item.type === 'bun' && isBun > 0)) {
+        let product = data.filter(product => product._id === item._id)
+        let isBun = order.filter(product => product.type === 'bun')
+        if (item.type === 'bun' && isBun.length > 0) {
+            let currentBun = data.filter(product => product._id === isBun[0]._id)
             dispatch({
-                type: ADD_INGREDIENT,
-                ingredient: item
+                type: REMOVE_INGREDIENT,
+                ingredient: currentBun[0]
             })
-            // item.counter ? item.counter += 1 : item.counter = 1
+            currentBun[0].counter = currentBun[0].counter - 1
             dispatch({
-                type: ADD_ID_ORDER,
-                ingredient: item,
-                price: item.type === 'bun' ? item.price*2 : item.price
+                type: REMOVE_ID_ORDER,
+                ingredient: currentBun[0],
+                price: currentBun[0].price*2
             })
         }
+        dispatch({
+            type: ADD_INGREDIENT,
+            ingredient: item
+        })
+        product[0].counter ? product[0].counter += 1 : product[0].counter = 1
+        dispatch({
+            type: ADD_ID_ORDER,
+            ingredient: item,
+            price: item.type === 'bun' ? item.price*2 : item.price
+        })
     }
 
     return (
-        <div className="order_card" ref={dropTarget}>
+        <div className={isHover ? "order_card order_card_hover" : "order_card"} ref={dropTarget}>
             {
                 order.length > 0
                     ?
@@ -73,14 +88,8 @@ function BurgerConstructor() {
                                     <div className="drag-icon">
                                         <DragIcon type="primary" />
                                     </div>
-                                    <ConstructorElement
-                                        thumbnail={product.image}
-                                        text={product.name}
-                                        price={product.price}
-                                        isLocked={false}
-                                        type={undefined}
-                                        // handleClose={deleteIngredient}
-                                    />
+                                    <ConstructorElementWrapper product={product} />
+
                                 </div>
                             </li>
                         ))}

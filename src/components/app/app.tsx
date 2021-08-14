@@ -12,8 +12,7 @@ import { Tab, Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-
 import {useDispatch, useSelector} from "react-redux";
 import {getAllIngredients} from "../../services/actions/all-ingredients";
 import {SELECTED_INGREDIENT_OFF, SELECTED_INGREDIENT_ON} from "../../services/actions/selected-ingredient";
-import {ADD_ID_ORDER, getOrder, MODAL_ORDER_OFF, MODAL_ORDER_ON} from "../../services/actions/order";
-import {ADD_INGREDIENT} from "../../services/actions/burger-constructor-ingredients";
+import { getOrder, MODAL_ORDER_OFF, MODAL_ORDER_ON} from "../../services/actions/order";
 import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
 
@@ -33,7 +32,6 @@ function App() {
 
     const openModalIngredients = (productId) => {
         let product = data.filter(product => product._id === productId.currentTarget.id)
-        // setSelectedProduct([product[0]])
         dispatch({
             type: SELECTED_INGREDIENT_ON,
             ingredient: product[0]
@@ -45,42 +43,19 @@ function App() {
 
     const openModalOrder = () => {
         let orderIdsList = order.map(product => product._id)
-        console.log(orderIdsList)
-        // getOrder(orderIdsList)
         dispatch(getOrder(orderIdsList))
-        // setModalOrder(true)
         dispatch({
             type: MODAL_ORDER_ON
         })
     }
 
     const closeModal = () => {
-        // setVisible(false)
         dispatch({
             type: SELECTED_INGREDIENT_OFF
         })
-        // setSelectedProduct([])
         dispatch({
             type: MODAL_ORDER_OFF
         })
-    }
-
-    const addProduct = (productId) => {
-        let product = data.filter(product => product._id === productId.currentTarget.id)
-        let isBun = order.filter(product => product.type === 'bun').length
-        console.log(product)
-        if (!(product[0].type === 'bun' && isBun > 0)) {
-            dispatch({
-                type: ADD_INGREDIENT,
-                ingredient: product[0]
-            })
-            product[0].counter ? product[0].counter += 1 : product[0].counter = 1
-            dispatch({
-                type: ADD_ID_ORDER,
-                ingredient: product[0],
-                price: product[0].type === 'bun' ? product[0].price*2 : product[0].price
-            })
-        }
     }
 
     const handleKeyUp = (e) => {
@@ -165,8 +140,6 @@ function App() {
                                         <div onClick={openModalIngredients} id={product._id}>
                                             <BurgerIngredients {...product}/>
                                         </div>
-                                        <div onClick={addProduct} id={product._id} className={styles.posCenter}><Button
-                                            type="secondary">Добавить</Button></div>
                                     </div>
                                 ))}
                             </div>
@@ -178,8 +151,6 @@ function App() {
                                         <div onClick={openModalIngredients} id={product._id}>
                                             <BurgerIngredients {...product}/>
                                         </div>
-                                        <div onClick={addProduct} id={product._id} className={styles.posCenter}><Button
-                                            type="secondary">Добавить</Button></div>
                                     </div>
                                 ))}
                             </div>

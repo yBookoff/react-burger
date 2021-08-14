@@ -1,5 +1,11 @@
 .Card {
     text-align: center;
-    padding-top: 30px;
+    padding: 30px;
     position: relative;
+    background: rgba(20, 20, 22, 1.00);
+    border-radius: 15px;
+}
+
+.CardDrag {
+    display: none;
 }

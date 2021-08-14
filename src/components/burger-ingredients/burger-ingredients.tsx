@@ -18,8 +18,7 @@ function BurgerIngredients(props) {
     })
 
     return (
-        <div className={styles.Card} ref={dragRef}>
-
+        <div className={isDrag ? styles.CardDrag : styles.Card} ref={dragRef}>
             <img src={ingredientData.image} alt=""/>
             <div className={styles.CardPrice}>
                 <span className="text text_type_digits-default">

@@ -18,6 +18,13 @@
 
 .order_card {
     display: flow-root;
+    min-height: 150px;
+    margin-left: 20px;
+}
+
+.order_card_hover {
+    border-radius: 5px;
+    background: rgba(42, 42, 62, 1)
 }
 
 .order_list {
@@ -25,5 +32,7 @@
 }
 
 .info_panel {
-    padding-top: 30px;
+    padding-top: 70px;
+    display: flex;
+    padding-left: 30%;
 }

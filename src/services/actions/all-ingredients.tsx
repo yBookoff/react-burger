@@ -24,10 +24,8 @@ export function getAllIngredients ()  {
         dispatch({
             type: GET_ALL_INGREDIENTS_REQUEST
         })
-        console.log('GET_ALL_INGREDIENTS_REQUEST')
         getProducts()
             .then((response) => {
-                console.log(response)
                 if (response && response.success) {
                     // @ts-ignore
                     console.log(response.data)
