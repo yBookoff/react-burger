@@ -7,7 +7,7 @@ import {
     REMOVE_ID_ORDER,
     MODAL_ORDER_ON,
     MODAL_ORDER_OFF,
-    DND_ORDER
+    DND_ORDER, RESET_ORDER
 } from "../actions/order";
 
 const orderInitState = {
@@ -91,6 +91,9 @@ export const order = (state = orderInitState, action) => {
                 ...state,
                 orderList: ingredientsList
             }
+        }
+        case RESET_ORDER: {
+            return orderInitState
         }
         default: {
             return state

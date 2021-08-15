@@ -34,7 +34,7 @@ function ConstructorElementWrapper({product, productIndex}) {
 
     const refDD = useRef(null)
 
-    const [{handlerElement}, dropElement] = useDrop({
+    const [, dropElement] = useDrop({
         accept: "burger-list",
         collect(monitor) {
             return {
@@ -85,7 +85,7 @@ function ConstructorElementWrapper({product, productIndex}) {
     dragElement(dropElement(refDD))
 
     return (
-        <div className="order-row" ref={refDD} data-handler-id={handlerElement} key={productIndex}>
+        <div className="order-row" ref={refDD} key={productIndex}>
             <div className="drag-icon">
                 <DragIcon type="primary" />
             </div>

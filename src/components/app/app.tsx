@@ -12,7 +12,7 @@ import { Tab, Button, CurrencyIcon } from "@ya.praktikum/react-developer-burger-
 import {useDispatch, useSelector} from "react-redux";
 import {getAllIngredients} from "../../services/actions/all-ingredients";
 import {SELECTED_INGREDIENT_OFF, SELECTED_INGREDIENT_ON} from "../../services/actions/selected-ingredient";
-import { getOrder, MODAL_ORDER_OFF, MODAL_ORDER_ON} from "../../services/actions/order";
+import {getOrder, MODAL_ORDER_OFF, MODAL_ORDER_ON, RESET_ORDER} from "../../services/actions/order";
 import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
 
@@ -52,12 +52,21 @@ function App() {
     }
 
     const closeModal = () => {
-        dispatch({
-            type: SELECTED_INGREDIENT_OFF
-        })
-        dispatch({
-            type: MODAL_ORDER_OFF
-        })
+        if (visibleModalIngredient || visibleNodalOrder) {
+            if (visibleNodalOrder) {
+                dispatch({
+                    type: MODAL_ORDER_OFF
+                })
+                dispatch({
+                    type: RESET_ORDER
+                })
+                dispatch(getAllIngredients())
+            } else {
+                dispatch({
+                    type: SELECTED_INGREDIENT_OFF
+                })
+            }
+        }
     }
 
     const handleKeyUp = (e) => {

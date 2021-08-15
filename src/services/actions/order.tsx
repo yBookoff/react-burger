@@ -7,6 +7,7 @@ export const ADD_ID_ORDER = 'ADD_ID_ORDER';
 export const ADD_BUN_ORDER = 'ADD_BUN_ORDER';
 export const REMOVE_ID_ORDER = 'REMOVE_ID_ORDER';
 export const DND_ORDER = 'DND_ORDER';
+export const RESET_ORDER = 'RESET_ORDER';
 
 
 

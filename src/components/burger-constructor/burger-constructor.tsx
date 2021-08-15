@@ -35,12 +35,12 @@ function BurgerConstructor() {
             let oldPrice = 0
             if (isBun) {
                 let currentBun = data.filter(product => product._id === isBun._id)
-                currentBun[0].counter = currentBun[0].counter - 1
+                currentBun[0].counter = currentBun[0].counter - 2
                 oldPrice += currentBun[0].price * 2
 
 
             }
-            product[0].counter ? product[0].counter += 1 : product[0].counter = 1
+            product[0].counter ? product[0].counter += 2 : product[0].counter = 2
             dispatch({
                 type: ADD_BUN_ORDER,
                 bun: product[0],
@@ -71,7 +71,7 @@ function BurgerConstructor() {
                                 </div>
                                 <ConstructorElement
                                     thumbnail={bun.image}
-                                    text={bun.name}
+                                    text={`${bun.name} (верх)`}
                                     price={bun.price}
                                     isLocked={true}
                                     type='top'
@@ -98,7 +98,7 @@ function BurgerConstructor() {
                                 </div>
                                 <ConstructorElement
                                     thumbnail={bun.image}
-                                    text={bun.name}
+                                    text={`${bun.name} (низ)`}
                                     price={bun.price}
                                     isLocked={true}
                                     type='bottom'
