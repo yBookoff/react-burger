@@ -2,22 +2,33 @@ import React from "react";
 import PropTypes from "prop-types";
 import { CurrencyIcon, Counter } from "@ya.praktikum/react-developer-burger-ui-components/dist/index.js";
 import styles from './burger-ingredients.module.css';
+import {useDrag} from "react-dnd";
 
 
 function BurgerIngredients(props) {
-    return (
-        <div className={styles.Card}>
 
-            <img src={props.image} alt=""/>
+    const ingredientData = props
+
+    const [{ isDrag }, dragRef] = useDrag({
+        item: ingredientData,
+        type: "card",
+        collect: (monitor) => ({
+            isDrag: monitor.isDragging()
+        })
+    })
+
+    return (
+        <div className={isDrag ? styles.CardDrag : styles.Card} ref={dragRef}>
+            <img src={ingredientData.image} alt=""/>
             <div className={styles.CardPrice}>
                 <span className="text text_type_digits-default">
-                    {props.price} <CurrencyIcon type="primary" />
+                    {ingredientData.price} <CurrencyIcon type="primary" />
                 </span>
             </div>
             <div className="text text_type_main-default">
-                {props.name}
+                {ingredientData.name}
             </div>
-            { props.counter > 0 ? <Counter count={props.counter} size="default" /> : <span> </span>}
+            { ingredientData.counter > 0 ? <Counter count={ingredientData.counter} size="default" /> : <span> </span>}
         </div>
     )
 }
