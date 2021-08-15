@@ -62,7 +62,7 @@ export const order = (state = orderInitState, action) => {
             return {
                 ...state,
                 orderPrice: state.orderPrice - action.price,
-                // @ts-ignore
+                
                 orderList: state.orderList.filter(ingredient => ingredient._id !== action.ingredient._id)
             }
         }

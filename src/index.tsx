@@ -6,7 +6,7 @@ import {compose, createStore, applyMiddleware} from "redux";
 import thunk from "redux-thunk";
 
 import './index.css';
-import App from './components/app/app';
+import App from './components/app/app.tsx';
 import reportWebVitals from './report-web-vitals';
 
 import {rootReducer} from "./services/reducers";

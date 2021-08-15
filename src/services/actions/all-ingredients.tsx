@@ -29,7 +29,7 @@ export function getAllIngredients ()  {
                 if (response && response.success) {
                     dispatch({
                         type: GET_ALL_INGREDIENTS_SUCCESS,
-                        // @ts-ignore
+                        
                         payload: response.data
                     })
                 } else {

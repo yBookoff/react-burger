@@ -41,11 +41,11 @@ export function getOrder (orderIds) {
         })
         getOrderNumber(orderIds)
             .then((response) => {
-                // @ts-ignore
+                
                 if (response.success) {
                     dispatch({
                         type: GET_ORDER_NUM_SUCCESS,
-                        // @ts-ignore
+                        
                         payload: response.order.number
                     })
                 } else {

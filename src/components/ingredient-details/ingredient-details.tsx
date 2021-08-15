@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import styles from "./ingredient-details.module.css";
 
 
@@ -30,6 +31,13 @@ function IngredientDetails({product})  {
     )
 }
 
-
+IngredientDetails.propTypes = {
+    image: PropTypes.string,
+    name: PropTypes.string,
+    calories: PropTypes.number,
+    proteins: PropTypes.number,
+    fat: PropTypes.number,
+    carbohydrates: PropTypes.number
+}
 
 export default IngredientDetails;

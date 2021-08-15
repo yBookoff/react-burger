@@ -3,7 +3,7 @@ import styles from './app.module.css';
 
 import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
-import BurgerConstructor from "../burger-constructor/burger-constructor";
+import BurgerConstructor from "../burger-constructor/burger-constructor.tsx";
 import IngredientDetail from '../ingredient-details/ingredient-details';
 import OrderDetails from '../order-details/order-details';
 import Modal from '../modal/modal';
@@ -25,9 +25,9 @@ function App() {
         dispatch(getAllIngredients())
     }, [dispatch]);
 
-    // @ts-ignore
+    
     const data = useSelector(state => state.allIngredients.allIngredientsList)
-    // @ts-ignore
+    
     const order = useSelector(state => state.order)
 
     const openModalIngredients = (productId) => {
@@ -82,21 +82,21 @@ function App() {
         }
     })
 
-    // @ts-ignore
+    
     const visibleModalIngredient = useSelector(state => state.selectedIngredient.selected)
-    // @ts-ignore
+    
     const visibleNodalOrder = useSelector(state => state.order.orderModalShow)
-    // @ts-ignore
+    
     const numberOrder = useSelector(state => state.order.orderNum)
-    // @ts-ignore
+    
     const selectedProduct = useSelector(state => state.selectedIngredient.ingredient)
 
     const [current, setCurrent] = React.useState('bun')
-    // @ts-ignore
+    
     const isLoading = useSelector(state => state.allIngredients.ingredientsLoadRequest)
-    // @ts-ignore
+    
     const hasError = useSelector(state => state.allIngredients.ingredientsLoadError)
-    // @ts-ignore
+    
     const price = useSelector(state => state.order.orderPrice)
 
     const tabsBlock = document.getElementById("tabs_block")
@@ -107,13 +107,13 @@ function App() {
         const sauceBlock = document.getElementById("sauce_block")
         const fillBlock = document.getElementById("fill_block")
 
-        // @ts-ignore
+        
         const tabsPos = tabsBlock.getBoundingClientRect().top
-        // @ts-ignore
+        
         const bunDist = Math.abs(tabsPos - bunBlock.getBoundingClientRect().top)
-        // @ts-ignore
+        
         const sauceDist = Math.abs(tabsPos - sauceBlock.getBoundingClientRect().top)
-        // @ts-ignore
+        
         const fillDist = Math.abs(tabsPos - fillBlock.getBoundingClientRect().top)
 
         if (bunDist < sauceDist && bunDist < fillDist) {

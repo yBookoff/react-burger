@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import orderMarkImg from '../../images/orderMark.png';
 
 import './order-details.css'
@@ -14,6 +15,10 @@ function OrderDetails({orderNumber}) {
             <p className="text text_type_main-default pb-10 info">Дождитесь готовности на орбитальной станции</p>
         </div>
     )
+}
+
+OrderDetails.propTypes = {
+    orderNumber: PropTypes.number.isRequired
 }
 
 export default OrderDetails;

@@ -4,15 +4,15 @@ import "./burger-constructor.css";
 import {useDispatch, useSelector} from "react-redux";
 import {useDrop} from "react-dnd";
 import {ADD_BUN_ORDER, ADD_ID_ORDER} from "../../services/actions/order";
-import ConstructorElementWrapper from "./constructor-element-wrapper";
+import ConstructorElementWrapper from "./constructor-element-wrapper.tsx";
 
 
 function BurgerConstructor() {
 
     const dispatch = useDispatch()
-    // @ts-ignore
+    
     const order = useSelector(state => state.order)
-    // @ts-ignore
+    
     const data = useSelector(state => state.allIngredients.allIngredientsList)
     const bun = order.bun
 

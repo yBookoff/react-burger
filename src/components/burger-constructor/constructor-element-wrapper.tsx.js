@@ -1,4 +1,5 @@
 import React, {useRef} from "react";
+import PropTypes from "prop-types";
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDispatch, useSelector} from "react-redux";
 import {DND_ORDER, REMOVE_ID_ORDER} from "../../services/actions/order";
@@ -9,7 +10,6 @@ function ConstructorElementWrapper({product, productIndex}) {
 
     const dispatch = useDispatch()
 
-    // @ts-ignore
     const data = useSelector(state => state.allIngredients.allIngredientsList)
 
     const deleteIngredient = () => {
@@ -46,7 +46,7 @@ function ConstructorElementWrapper({product, productIndex}) {
                 return
             }
 
-            // @ts-ignore
+            
             const dragIndex = item.index
             const hoverIndex = productIndex
 
@@ -54,12 +54,12 @@ function ConstructorElementWrapper({product, productIndex}) {
                 return;
             }
 
-            // @ts-ignore
+            
             const hoverBoundingReact = refDD.current?.getBoundingClientRect()
             const hoverMiddleY = (hoverBoundingReact.bottom - hoverBoundingReact.top) / 2
 
             const clientOffset = monitor.getClientOffset()
-            // @ts-ignore
+            
             const hoverClientY = clientOffset.y - hoverBoundingReact.top
 
             if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
@@ -77,7 +77,7 @@ function ConstructorElementWrapper({product, productIndex}) {
                 })
             }
 
-            // @ts-ignore
+            
             item.index = hoverIndex
         }
     })
@@ -99,6 +99,13 @@ function ConstructorElementWrapper({product, productIndex}) {
             />
         </div>
     )
+}
+
+ConstructorElementWrapper.propTypes = {
+    image: PropTypes.string,
+    name: PropTypes.string,
+    price: PropTypes.number,
+    productIndex: PropTypes.number.isRequired
 }
 
 export default ConstructorElementWrapper
