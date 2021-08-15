@@ -102,9 +102,11 @@ function ConstructorElementWrapper({product, productIndex}) {
 }
 
 ConstructorElementWrapper.propTypes = {
-    image: PropTypes.string,
-    name: PropTypes.string,
-    price: PropTypes.number,
+    product: PropTypes.shape({
+        image: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
+    }),
     productIndex: PropTypes.number.isRequired
 }
 

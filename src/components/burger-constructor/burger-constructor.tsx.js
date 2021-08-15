@@ -65,7 +65,7 @@ function BurgerConstructor() {
                     {
                         (bun)
                             ?
-                            <div className="order-row mb-2">
+                            <div className="order-bun-row mb-2">
                                 <div className="drag-icon">
                                     <span className="pl-6"> </span>
                                 </div>
@@ -92,7 +92,7 @@ function BurgerConstructor() {
                     {
                         (bun)
                             ?
-                            <div className="order-row mt-2">
+                            <div className="order-bun-row mt-2">
                                 <div className="drag-icon">
                                     <span className="pl-6"> </span>
                                 </div>

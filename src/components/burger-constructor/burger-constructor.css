@@ -16,10 +16,17 @@
     width: 90%;
 }
 
+.order-bun-row {
+    display: inline-flex;
+    width: 90%;
+}
+
 .order_card {
     display: flow-root;
     min-height: 150px;
     margin-left: 20px;
+    float: right;
+    /*width: 100%;*/
 }
 
 .order_card_hover {
@@ -34,5 +41,7 @@
 .info_panel {
     padding-top: 70px;
     display: flex;
-    padding-left: 30%;
+    padding-left: 5%;
+    float: left !important;
+    min-width: 400px;
 }
